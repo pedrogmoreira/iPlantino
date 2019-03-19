@@ -1,0 +1,21 @@
+﻿using System;
+using MediatR;
+
+namespace iPlantino.Domain.Core.Events
+{
+    public abstract class Message : INotification
+    {
+        public string MessageType { get; protected set; }
+        public Guid AggregateId { get; protected set; }
+
+        protected Message(string messageType)
+        {
+            MessageType = messageType;
+        }
+
+        protected Message()
+        {
+            MessageType = GetType().Name;
+        }
+    }
+}
