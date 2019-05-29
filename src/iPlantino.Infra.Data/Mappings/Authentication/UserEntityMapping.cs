@@ -45,8 +45,6 @@ namespace iPlantino.Infra.Data.Mappings
             entity.Ignore(x => x.Permissions);
 
             entity.AddInclusionDate();
-
-            entity.HasData(new User("administrador", "admin", "123456", null, null));
         }
     }
 }
