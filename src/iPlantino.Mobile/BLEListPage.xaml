@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:iPlantino.Mobile" 
+             x:Class="iPlantino.Mobile.BLEListPage"
+             Title = "Configurar Bluetooth">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" 
+                    iOS="0, 30, 0, 0" 
+                    Android="20, 20, 20, 20" />
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- Button configuration           -->
+            <Button Text="Search" 
+                    Clicked="SearchDevice" >
+                <Button.Margin>
+                    <OnPlatform x:TypeArguments="Thickness"
+                                iOS="20, 0, 20, 0"
+                                Android="0" />
+                </Button.Margin>
+                <Button.BorderWidth>
+                    <OnPlatform iOS="2" Android="0" />
+                </Button.BorderWidth>
+                <Button.BorderColor>
+                    <OnPlatform iOS="#74B3F4" />
+                </Button.BorderColor>
+                <Button.BackgroundColor>
+                    <OnPlatform Android="#74B3F4" />
+                </Button.BackgroundColor>
+                <Button.TextColor>
+                    <OnPlatform Android="#FFF" />
+                </Button.TextColor>
+            </Button>
+            
+            <ListView x:Name="DevicesList"
+                      IsPullToRefreshEnabled="true"
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="DevicesList_OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding NativeDevice.Name}" ></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
