@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\iPlantino.Domain\iPlantino.Domain.csproj" />
+    <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Bus\iPlantino.Infra.CrossCutting.Bus.csproj" />
+    <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Jwt\iPlantino.Infra.CrossCutting.Jwt.csproj" />
+    <ProjectReference Include="..\iPlantino.Infra.Data\iPlantino.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
