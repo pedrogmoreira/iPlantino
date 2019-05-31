@@ -20,7 +20,6 @@ namespace iPlantino.Infra.CrossCutting.IoC
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<iPlantinoContext>(options => options.UseSqlServer(
                     configuration.GetConnectionString("AzureServer")));
-            //configuration.GetConnectionString("SqlServer")));
 
             services.AddUnitOfWork<iPlantinoContext>();
 

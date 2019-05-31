@@ -3,7 +3,7 @@ using iPlantino.Infra.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace iPlantino.Infra.Data.Mappings
+namespace iPlantino.Infra.Data.Mappings.Authentication
 {
     public class UserEntityMapping : IEntityTypeConfiguration<User>
     {
