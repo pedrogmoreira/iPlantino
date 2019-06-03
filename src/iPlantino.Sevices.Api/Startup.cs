@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using iPlantino.Infra.CrossCutting.IoC;
 using iPlantino.Infra.CrossCutting.Jwt;
 using iPlantino.Services.Api.Infrastructure.Filters;
 using iPlantino.Services.Api.Infrastructure.Helpers;
+using System;
 
 namespace iPlantino.Sevices.Api
 {
@@ -28,7 +28,7 @@ namespace iPlantino.Sevices.Api
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddMvc(config =>
@@ -44,10 +44,8 @@ namespace iPlantino.Sevices.Api
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .ConfigureFluentValidation();
 
-            services.ConfigureAuthorization();
-
             services.ConfigureSwagger();
-            services.RegisterServices(Configuration);
+            return services.RegisterServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

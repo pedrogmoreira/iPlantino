@@ -10,30 +10,74 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Autofac;
+using Alexinea.Autofac.Extensions.DependencyInjection;
+using System;
+using iPlantino.Infra.CrossCutting.Identity.Security;
+using iPlantino.Infra.CrossCutting.Identity.Entities;
+using Microsoft.AspNetCore.Identity;
 
-namespace iPlantino.Infra.CrossCutting.IoC
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class NativeInjector
     {
-        public static void RegisterServices(this IServiceCollection services, IConfigurationRoot configuration)
+        public static IServiceProvider RegisterServices(this IServiceCollection services, IConfigurationRoot configuration)
         {
-            services.AddEntityFrameworkSqlServer()
-                .AddDbContext<iPlantinoContext>(options => options.UseSqlServer(
-                    configuration.GetConnectionString("AzureServer")));
-
-            services.AddUnitOfWork<iPlantinoContext>();
+            var builder = new ContainerBuilder();
 
             services.AddMediatR(typeof(NativeInjector));
 
-            services.AddScoped<IUser, AspNetUser>();
+            builder.ConfigureCore();
 
-            services.AddScoped<IMediatorHandler, InMemoryBus>();
+            services.ConfigureIdentity(builder, configuration);
 
-            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+            builder.ConfigureJwt();
+            services.ConfigureJwtAuthorization();
 
-            services.AddScoped<JwtAutenticationService>();
+            builder.Populate(services);
+            return new AutofacServiceProvider(builder.Build());
+        }
 
-            services.AddScoped<AuthenticationService>();
+        private static void ConfigureCore(this ContainerBuilder container)
+        {
+            container.RegisterType<DomainNotificationHandler>()
+                .As<INotificationHandler<DomainNotification>>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType<InMemoryBus>()
+                .As<IMediatorHandler>()
+                .InstancePerLifetimeScope();
+        }
+
+        private static void ConfigureIdentity(this IServiceCollection services, ContainerBuilder builder, IConfigurationRoot configuration)
+        {
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<IdentityContext>(options => 
+                    options.UseSqlServer(configuration.GetConnectionString("AzureServer")));
+
+            builder.RegisterType<AccessManager>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UserManager>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<RoleManager>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureIdentityOptions();
+        }
+
+        private static void ConfigureJwt(this ContainerBuilder builder)
+        {
+            builder.RegisterType<JwtAutenticationService>()
+                .InstancePerLifetimeScope();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace iPlantino.Infra.CrossCutting.Jwt
         private static readonly string SecretKey = "d8fd542d-956-5d2d-8fd5-c6ffd5525874";
         private static SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
-        public static void ConfigureAuthorization(this IServiceCollection services)
+        public static void ConfigureJwtAuthorization(this IServiceCollection services)
         {
             var tokenValidationParameters = new TokenValidationParameters
             {

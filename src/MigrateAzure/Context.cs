@@ -1,4 +1,4 @@
-﻿using iPlantino.Infra.Data.Mappings;
+﻿using iPlantino.Infra.Data.Mappings.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Migrate
@@ -16,9 +16,9 @@ namespace Migrate
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var assembly = typeof(GroupEntityMapping).Assembly;
+            var assembly = typeof(UserEntityMapping).Assembly;
 
-            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(assembly, "iPlantino.Infra.Data.Mappings");
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(assembly, "iPlantino.Infra.Data.Mappings.Identity");
         }
     }
 }

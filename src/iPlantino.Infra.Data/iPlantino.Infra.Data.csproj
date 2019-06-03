@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\iPlantino.Domain\iPlantino.Domain.csproj" />
+    <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Identity\iPlantino.Infra.CrossCutting.Identity.csproj" />
     <ProjectReference Include="..\iPlantino.Infra.UnitOfWork\iPlantino.Infra.UnitOfWork.csproj" />
   </ItemGroup>
 

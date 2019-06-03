@@ -1,9 +1,11 @@
 ﻿using iPlantino.Domain.Commands.Authentication;
 using iPlantino.Domain.Core.Bus;
 using iPlantino.Domain.Core.Notifications;
-using iPlantino.Domain.Models.Authentication;
-using Microsoft.AspNetCore.Identity;
+using iPlantino.Infra.CrossCutting.Identity.Entities;
+using iPlantino.Infra.CrossCutting.Identity.Interfaces;
+using iPlantino.Infra.CrossCutting.Identity.Roles;
 using MediatR;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,22 +13,22 @@ namespace iPlantino.Domain.CommandHandlers.Authentication
 {
     public class RegisterUserCommandHandler : Notifiable, IRequestHandler<RegisterUserCommand>    
     {
-        private readonly UserManager<User> _userManager;
+        private readonly IUserManager _userManager;
 
-        public RegisterUserCommandHandler(UserManager userManager, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications) : base(bus, notifications)
+        public RegisterUserCommandHandler(IUserManager userManager, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications) : base(bus, notifications)
         {
             _userManager = userManager;
         }
 
         public async Task<Unit> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User(request.Name, request.Login.ToString(), request.Password.ToString(), request.Telephone, request.Email.ToString());
+            var user = new ApplicationUser(request.Id, request.Name, request.Email.Address, request.Login.Value);
 
             var createUserIdentityResult = await _userManager.CreateUser(user, request.Password.Value);
 
             if (createUserIdentityResult.Succeeded)
             {
-                var addToRolesIdentityResult = await _userManager.AddToRoles(user, request.Roles);
+                var addToRolesIdentityResult = await _userManager.AddToRoles(user, DefaultRolesGroups.USER);
 
                 foreach (var erro in addToRolesIdentityResult?.Errors)
                 {
@@ -41,6 +43,5 @@ namespace iPlantino.Domain.CommandHandlers.Authentication
 
             return Unit.Value;
         }
-
     }
 }

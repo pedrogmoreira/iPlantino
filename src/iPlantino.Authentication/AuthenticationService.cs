@@ -1,21 +1,26 @@
 ﻿using iPlantino.Domain.Core.Bus;
 using iPlantino.Domain.Core.Notifications;
-using iPlantino.Domain.Models.Authentication;
 using iPlantino.Authentication.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
+using iPlantino.Infra.CrossCutting.Identity.Interfaces;
+using iPlantino.Infra.CrossCutting.Identity.Entities;
 
 namespace iPlantino.Authentication
 {
     public class AuthenticationService : Notifiable
     {
-        private readonly IRepository<User> _authenticationRepository;
+        private readonly IRepository<ApplicationUser> _authenticationRepository;
+        private readonly IAcessManager _userManager;
 
-        public AuthenticationService(IUnitOfWork unitOfWork, IMediatorHandler bus,
+        public AuthenticationService(IUnitOfWork unitOfWork, IAcessManager userManager, IMediatorHandler bus,
             INotificationHandler<DomainNotification> notifications) : base(bus, notifications)
         {
-            _authenticationRepository = unitOfWork.GetRepository<User>();
+            _authenticationRepository = unitOfWork.GetRepository<ApplicationUser>();
+            _userManager = userManager;
         }
 
         public async Task<AuthenticatedUser> Authenticate(AuthenticateUser authenticateUser)
@@ -27,20 +32,25 @@ namespace iPlantino.Authentication
             if (IsValid())
             {
                 var user = await _authenticationRepository.GetFirstOrDefaultAsync(
-               predicate: x => x.Login == authenticateUser.Login,
+               predicate: x => x.UserName == authenticateUser.Login,
                 disableTracking: true,
                 include: "UsersGroup.Group.PermissionsGroup.Permission");
 
-                if (user == null || user.Deleted != null)
+                if (user == null)
                 {
                     await Notify("Usuario", "Usuário ou Senha Inválidos");
                     return await Task.FromResult<AuthenticatedUser>(null);
                 }
 
-                if (user.Authenticate(authenticateUser.Login, authenticateUser.Password))
+                if (_userManager.ValidateCredentials(user, authenticateUser.Password).Result.Succeeded)
                 {
-                    return new AuthenticatedUser(user.Id, user.Name, user.Login,
-                        user.Email, user.Permissions);
+                    var roles = new List<string>();
+                    foreach (var role in user.UserRoles.ToList())
+                    {
+                        roles.Add(role.Role.Name);
+                    }
+                    return new AuthenticatedUser(user.Id, user.Name, user.UserName,
+                        user.Email, roles);
                 }
 
                 await Notify("Usuario", "Usuário ou Senha Inválidos");

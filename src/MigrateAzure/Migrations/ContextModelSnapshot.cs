@@ -19,153 +19,251 @@ namespace MigrateAzure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("iPlantino.Domain.Models.Authentication.Group", b =>
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserClaim", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id_group")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("inclusion_date")
-                        .HasDefaultValueSql("getutcdate()");
+                    b.Property<string>("ClaimType")
+                        .HasColumnName("claim_type");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("name")
-                        .HasColumnType("varchar(50)");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnName("claim_value");
 
-                    b.Property<string>("Observation")
-                        .IsRequired()
-                        .HasColumnName("observation")
-                        .HasColumnType("varchar(512)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
-                    b.ToTable("tbl_group","authentication");
+                    b.HasIndex("UserId")
+                        .HasName("user_claim_id_index");
+
+                    b.ToTable("user_claim","identity");
                 });
 
-            modelBuilder.Entity("iPlantino.Domain.Models.Authentication.Permission", b =>
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserLogin", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnName("login_provider");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnName("provider_key");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnName("provider_display_name");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId")
+                        .HasName("user_login_id_index");
+
+                    b.ToTable("user_login","identity");
+                });
+
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserRole", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnName("user_id");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnName("role_id");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId")
+                        .HasName("user_role_id_index");
+
+                    b.ToTable("user_role","identity");
+                });
+
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id_permission")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("inclusion_date")
-                        .HasDefaultValueSql("getutcdate()");
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnName("concurrency_stamp");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnName("name")
-                        .HasColumnType("varchar(50)");
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnName("normalized_name")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
-                    b.ToTable("tbl_permission","authentication");
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("role_normalize_name_index")
+                        .HasFilter("[normalized_name] IS NOT NULL");
+
+                    b.ToTable("role","identity");
                 });
 
-            modelBuilder.Entity("iPlantino.Domain.Models.Authentication.PermissionGroup", b =>
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationRoleClaim", b =>
                 {
-                    b.Property<Guid>("IdGroup")
-                        .HasColumnName("id_group");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("IdPermission")
-                        .HasColumnName("id_permission");
+                    b.Property<string>("ClaimType")
+                        .HasColumnName("claim_type");
 
-                    b.HasKey("IdGroup", "IdPermission");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnName("claim_value");
 
-                    b.HasIndex("IdPermission");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnName("role_id");
 
-                    b.ToTable("tbl_permission_group","authentication");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId")
+                        .HasName("role_claims_id_index");
+
+                    b.ToTable("role_claims","identity");
                 });
 
-            modelBuilder.Entity("iPlantino.Domain.Models.Authentication.User", b =>
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id_user")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("inclusion_date")
-                        .HasDefaultValueSql("getutcdate()");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnName("access_failed_count");
 
-                    b.Property<DateTime?>("Deleted")
-                        .HasColumnName("deleted")
-                        .HasColumnType("date");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("concurrency_stamp");
 
                     b.Property<string>("Email")
                         .HasColumnName("email")
-                        .HasColumnType("varchar(512)");
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Hash")
-                        .IsRequired()
-                        .HasColumnName("hash")
-                        .HasColumnType("varchar(100)");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnName("email_confirmed");
 
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasColumnName("login")
-                        .HasColumnType("varchar(20)");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnName("lockout_enabled");
+
+                    b.Property<byte[]>("LockoutEnd")
+                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 12)))
+                        .HasColumnName("lockout_end")
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnName("name")
-                        .HasColumnType("varchar(256)");
+                        .HasMaxLength(60);
 
-                    b.Property<string>("Telephone")
-                        .HasColumnName("telephone")
-                        .HasColumnType("varchar(15)");
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnName("normalized_email")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnName("normalized_username")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnName("password_hash");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnName("phone_number");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnName("phone_number_confirmed");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnName("security_stamp");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnName("two_factor_enabled");
+
+                    b.Property<string>("UserName")
+                        .HasColumnName("username")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
-                    b.ToTable("tbl_user","authentication");
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("email_index");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("user_normalized_name_index")
+                        .HasFilter("[normalized_username] IS NOT NULL");
+
+                    b.ToTable("user","identity");
                 });
 
-            modelBuilder.Entity("iPlantino.Domain.Models.Authentication.UserGroup", b =>
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUserToken", b =>
                 {
-                    b.Property<Guid>("IdGroup")
-                        .HasColumnName("id_group");
+                    b.Property<Guid>("UserId")
+                        .HasColumnName("user_id");
 
-                    b.Property<Guid>("IdUser")
-                        .HasColumnName("id_user");
+                    b.Property<string>("LoginProvider")
+                        .HasColumnName("login_provider");
 
-                    b.HasKey("IdGroup", "IdUser");
+                    b.Property<string>("Name")
+                        .HasColumnName("name");
 
-                    b.HasIndex("IdUser");
+                    b.Property<string>("Value")
+                        .HasColumnName("value");
 
-                    b.ToTable("tbl_user_group","authentication");
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("user_token","identity");
                 });
 
-            modelBuilder.Entity("iPlantino.Domain.Models.Authentication.PermissionGroup", b =>
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserClaim", b =>
                 {
-                    b.HasOne("iPlantino.Domain.Models.Authentication.Group", "Group")
-                        .WithMany("PermissionsGroup")
-                        .HasForeignKey("IdGroup")
-                        .HasConstraintName("fk_permission_group_group");
-
-                    b.HasOne("iPlantino.Domain.Models.Authentication.Permission", "Permission")
-                        .WithMany("PermissionGroup")
-                        .HasForeignKey("IdPermission")
-                        .HasConstraintName("fk_permission_group_permission");
+                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUser", "User")
+                        .WithMany("UserClaims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("iPlantino.Domain.Models.Authentication.UserGroup", b =>
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserLogin", b =>
                 {
-                    b.HasOne("iPlantino.Domain.Models.Authentication.Group", "Group")
-                        .WithMany("UsersGroup")
-                        .HasForeignKey("IdGroup")
-                        .HasConstraintName("fk_user_group_group");
+                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUser", "User")
+                        .WithMany("UserLogins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.HasOne("iPlantino.Domain.Models.Authentication.User", "User")
-                        .WithMany("UsersGroup")
-                        .HasForeignKey("IdUser")
-                        .HasConstraintName("fk_user_group_user");
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserRole", b =>
+                {
+                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationRole", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUser", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationRoleClaim", b =>
+                {
+                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationRole", "Role")
+                        .WithMany("RoleClaims")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUserToken", b =>
+                {
+                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUser", "User")
+                        .WithMany("UserTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

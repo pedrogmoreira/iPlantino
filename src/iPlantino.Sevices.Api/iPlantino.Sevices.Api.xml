@@ -23,5 +23,30 @@
             <param name="login">login e senha do usuário.</param>
             <returns></returns>
         </member>
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.#ctor(MediatR.INotificationHandler{iPlantino.Domain.Core.Notifications.DomainNotification})">
+            <summary>
+            
+            </summary>
+            <param name="notifications"></param>
+            <param name="authenticationService"></param>
+        </member>
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Get(iPlantino.Domain.AggregatesModel.UserAggregate.IUserRepository,System.Guid)">
+            <summary>
+            Detalha um usuário.
+            Roles: [usuarios-detalhar,usuarios-adicionar]
+            </summary>
+            <param name="userRepository"></param>
+            <param name="idUsuario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,Egl.Sit.Api.V1.Usuarios.Models.AdicionarUsuarioModel)">
+            <summary>
+            Adiciona um novo usuário.
+            Roles: [usuarios-adicionar]
+            </summary>  
+            <param name="bus"></param>
+            <param name="novoUsuarioModel"></param>
+            <returns>Id do Usuário Criado <see cref="T:Egl.Sit.Api.V1.Usuarios.Models.UsuarioAdicionadoModel"/></returns>
+        </member>
     </members>
 </doc>

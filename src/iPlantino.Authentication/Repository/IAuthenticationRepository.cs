@@ -1,9 +1,9 @@
-﻿using iPlantino.Domain.Models.Authentication;
+﻿using iPlantino.Infra.CrossCutting.Identity.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace iPlantino.Authentication.Repository
 {
-    public interface IAuthenticationRepository : IRepository<User>
+    public interface IAuthenticationRepository : IRepository<ApplicationUser>
     {
     }
 }

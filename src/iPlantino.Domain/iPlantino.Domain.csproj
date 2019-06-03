@@ -7,6 +7,11 @@
   <ItemGroup>
     <ProjectReference Include="..\iPlantino.Domain.Core\iPlantino.Domain.Core.csproj" />
     <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Bus\iPlantino.Infra.CrossCutting.Bus.csproj" />
+    <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Identity\iPlantino.Infra.CrossCutting.Identity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
