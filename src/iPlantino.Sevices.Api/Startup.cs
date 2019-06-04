@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using iPlantino.Infra.CrossCutting.Jwt;
 using iPlantino.Services.Api.Infrastructure.Filters;
 using iPlantino.Services.Api.Infrastructure.Helpers;
 using System;
@@ -45,6 +44,7 @@ namespace iPlantino.Sevices.Api
             .ConfigureFluentValidation();
 
             services.ConfigureSwagger();
+
             return services.RegisterServices(Configuration);
         }
 

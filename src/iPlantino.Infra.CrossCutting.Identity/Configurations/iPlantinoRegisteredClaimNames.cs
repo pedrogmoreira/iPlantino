@@ -1,4 +1,4 @@
-﻿namespace Egl.Sit.Infra.CrossCutting.Identity.Configurations
+﻿namespace iPlantino.Infra.CrossCutting.Identity.Configurations
 {
     public struct iPlantinoRegisteredClaimNames
     {

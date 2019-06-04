@@ -3,7 +3,6 @@ using iPlantino.Infra.CrossCutting.Identity.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace iPlantino.Infra.CrossCutting.Identity.Security

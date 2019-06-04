@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using iPlantino.Services.Api.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace iPlantino.Services.API.Controllers
 {

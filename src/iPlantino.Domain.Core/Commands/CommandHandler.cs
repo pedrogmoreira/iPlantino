@@ -1,7 +1,7 @@
 ﻿using iPlantino.Domain.Core.Bus;
 using iPlantino.Domain.Core.Notifications;
+using iPlantino.Domain.Core.UnitOfWork;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 
@@ -9,7 +9,7 @@ namespace iPlantino.Domain.Core.Commands
 {
     public abstract class CommandHandler : Notifiable
     {
-        private readonly Microsoft.EntityFrameworkCore.IUnitOfWork _uow;
+        private readonly IUnitOfWork _uow;
 
         protected CommandHandler(IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications) : base(bus, notifications)
         {

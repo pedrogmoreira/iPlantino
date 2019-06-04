@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace iPlantino.Infra.CrossCutting.Identity.Roles
+﻿namespace iPlantino.Infra.CrossCutting.Identity.Roles
 {
     class Roles
     {
-        public static readonly string ADMINISTRATOR = "administrator";
-        public static readonly string USER = "user";
-        public static readonly string USER_DEVICE = "user-device";
+        public static readonly string ADMINISTRATOR = "administrator-role";
+        public static readonly string USER = "user-role";
     }
 }

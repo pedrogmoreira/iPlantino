@@ -15,7 +15,7 @@ namespace iPlantino.Services.Api.Infrastructure.Helpers
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Unnamed Project", Version = "v1", Description = "API - Unnamed Project" });
+                c.SwaggerDoc("v1", new Info { Title = "iPlantino", Version = "v1", Description = "API - iPlantino" });
                 // c.SwaggerDoc("v2", new Info { Title = "EGL Mobile", Version = "v2", Description = "API - EGL Mobile - v2" });
                 c.AddSecurityDefinition("Bearer",
                     new ApiKeyScheme
@@ -30,7 +30,7 @@ namespace iPlantino.Services.Api.Infrastructure.Helpers
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory,xmlFile);
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
                 c.IncludeXmlComments(xmlPath);
 
@@ -46,7 +46,7 @@ namespace iPlantino.Services.Api.Infrastructure.Helpers
             app.UseSwaggerUI(
                 c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Unnamed Project Api v1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "iPlantino Api v1");
                     //  c.SwaggerEndpoint("/swagger/v2/swagger.json", "EGL Mobile Api v2");
                 });
 

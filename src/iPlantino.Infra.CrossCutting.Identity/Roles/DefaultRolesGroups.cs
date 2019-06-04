@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace iPlantino.Infra.CrossCutting.Identity.Roles
 {
@@ -8,8 +6,7 @@ namespace iPlantino.Infra.CrossCutting.Identity.Roles
     {
         public static readonly List<string> USER = new List<string>
         {
-            Roles.USER,
-            Roles.USER_DEVICE
+            Roles.USER
         };
 
         public static readonly List<string> ADMINISTRATOR = new List<string>

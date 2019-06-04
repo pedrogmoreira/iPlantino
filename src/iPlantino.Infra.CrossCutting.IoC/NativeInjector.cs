@@ -1,21 +1,20 @@
 ﻿using iPlantino.Domain.Core.Bus;
 using iPlantino.Domain.Core.Notifications;
 using iPlantino.Authentication;
-using iPlantino.Domain.Interfaces;
 using iPlantino.Infra.CrossCutting.Bus;
 using iPlantino.Infra.CrossCutting.Jwt;
-using iPlantino.Infra.CrossCutting.Jwt.Models;
 using iPlantino.Infra.Data.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Autofac;
 using Alexinea.Autofac.Extensions.DependencyInjection;
 using System;
 using iPlantino.Infra.CrossCutting.Identity.Security;
 using iPlantino.Infra.CrossCutting.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
+using iPlantino.Domain.CommandHandlers.Registration;
+using iPlantino.Infra.Data.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -28,6 +27,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddMediatR(typeof(NativeInjector));
 
             builder.ConfigureCore();
+
+            services.AddUserConfiguration(builder, configuration);
 
             services.ConfigureIdentity(builder, configuration);
 
@@ -76,8 +77,34 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static void ConfigureJwt(this ContainerBuilder builder)
         {
+            builder.RegisterType<AuthenticationService>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<JwtAutenticationService>()
                 .InstancePerLifetimeScope();
+        }
+
+        public static IServiceCollection AddUserConfiguration(this IServiceCollection services, ContainerBuilder container, IConfigurationRoot configuration)
+        {
+            container.RegisterType<UnitOfWork<IdentityContext>>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType<UserRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            container.RegisterAssemblyTypes(typeof(UserRepository).Assembly)
+               .Where(t => t.Namespace.EndsWith("Repositories"))
+               .AsImplementedInterfaces()
+               .InstancePerLifetimeScope();
+
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<IdentityContext>(options =>
+                    options.UseSqlServer(configuration.GetConnectionString("AzureServer")));
+
+            //Commands Handlers
+            container.RegisterType<RegisterUserCommandHandler>().AsImplementedInterfaces().InstancePerDependency();
+
+            return services;
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using iPlantino.Domain.Commands.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using iPlantino.Domain.Commands.Registration;
 
-namespace iPlantino.Domain.Validations.Authentication
+namespace iPlantino.Domain.Validations.Registration
 {
     public class RegisterUserValidation : UserValidation<RegisterUserCommand>
     {

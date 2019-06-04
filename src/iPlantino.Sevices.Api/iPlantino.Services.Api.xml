@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>iPlantino.Sevices.Api</name>
+        <name>iPlantino.Services.Api</name>
     </assembly>
     <members>
         <member name="T:iPlantino.Services.Api.Controllers.AuthenticationController">
@@ -23,14 +23,18 @@
             <param name="login">login e senha do usuário.</param>
             <returns></returns>
         </member>
+        <member name="T:iPlantino.Sevices.Api.Controllers.UserController">
+            <summary>
+            Controler de Autenticação
+            </summary>
+        </member>
         <member name="M:iPlantino.Sevices.Api.Controllers.UserController.#ctor(MediatR.INotificationHandler{iPlantino.Domain.Core.Notifications.DomainNotification})">
             <summary>
             
             </summary>
             <param name="notifications"></param>
-            <param name="authenticationService"></param>
         </member>
-        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Get(iPlantino.Domain.AggregatesModel.UserAggregate.IUserRepository,System.Guid)">
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Get(iPlantino.Domain.AggregatesModel.UserAggregate.IUserRepository,iPlantino.Infra.CrossCutting.Identity.Interfaces.IUserManager,System.Guid)">
             <summary>
             Detalha um usuário.
             Roles: [usuarios-detalhar,usuarios-adicionar]
@@ -39,14 +43,14 @@
             <param name="idUsuario"></param>
             <returns></returns>
         </member>
-        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,Egl.Sit.Api.V1.Usuarios.Models.AdicionarUsuarioModel)">
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.V1.Usuarios.Models.RegisterUserModel)">
             <summary>
             Adiciona um novo usuário.
             Roles: [usuarios-adicionar]
             </summary>  
             <param name="bus"></param>
-            <param name="novoUsuarioModel"></param>
-            <returns>Id do Usuário Criado <see cref="T:Egl.Sit.Api.V1.Usuarios.Models.UsuarioAdicionadoModel"/></returns>
+            <param name="registerUserModel"></param>
+            <returns>Id do Usuário Criado <see cref="T:iPlantino.Services.Api.V1.Usuarios.Models.UserRegisteredModel"/></returns>
         </member>
     </members>
 </doc>

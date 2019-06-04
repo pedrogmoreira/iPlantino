@@ -1,15 +1,14 @@
-﻿using iPlantino.Domain.Commands.Authentication;
+﻿using iPlantino.Domain.Commands.Registration;
 using iPlantino.Domain.Core.Bus;
 using iPlantino.Domain.Core.Notifications;
 using iPlantino.Infra.CrossCutting.Identity.Entities;
 using iPlantino.Infra.CrossCutting.Identity.Interfaces;
 using iPlantino.Infra.CrossCutting.Identity.Roles;
 using MediatR;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace iPlantino.Domain.CommandHandlers.Authentication
+namespace iPlantino.Domain.CommandHandlers.Registration
 {
     public class RegisterUserCommandHandler : Notifiable, IRequestHandler<RegisterUserCommand>    
     {

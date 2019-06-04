@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20190603164318_Identity_Fix.cs" />
     <Compile Remove="Migrations\20190603164757_Identity_Fix.cs" />
     <Compile Remove="Migrations\20190603165015_Identity_Fix.cs" />
+    <Compile Remove="Migrations\20190603215226_Test.cs" />
+    <Compile Remove="Migrations\20190603220922_Test.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Egl.Sit.Api.V1.Usuarios.Models
+namespace iPlantino.Services.Api.V1.Usuarios.Models
 {
-    public class UsuarioAdicionadoModel
+    public class UserRegisteredModel
     {
         public Guid Id { get; set; }
         public string Login { get; set; }

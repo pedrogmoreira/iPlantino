@@ -10,8 +10,8 @@ using Migrate;
 namespace MigrateAzure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20190603165650_Identity_Fix")]
-    partial class Identity_Fix
+    [Migration("20190604000738_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,29 @@ namespace MigrateAzure.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("iPlantino.Domain.AggregatesModel.PermissionAggregate.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Title")
+                        .HasColumnName("title")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("permission","identity");
+                });
 
             modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserClaim", b =>
                 {
@@ -155,10 +178,10 @@ namespace MigrateAzure.Migrations
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnName("lockout_enabled");
 
-                    b.Property<byte[]>("LockoutEnd")
-                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 12)))
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("lockout_end")
-                        .HasColumnType("timestamp");
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("Name")
                         .HasColumnName("name")

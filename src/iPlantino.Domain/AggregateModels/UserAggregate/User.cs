@@ -1,7 +1,6 @@
 ﻿using iPlantino.Domain.Core.Aggregate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace iPlantino.Domain.AggregatesModel.UserAggregate
 {

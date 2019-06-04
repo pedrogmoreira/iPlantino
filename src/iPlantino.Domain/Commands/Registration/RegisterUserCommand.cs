@@ -1,9 +1,9 @@
-﻿using iPlantino.Domain.Validations.Authentication;
+﻿using iPlantino.Domain.Validations.Registration;
 using MediatR;
 using System;
 using System.Threading.Tasks;
 
-namespace iPlantino.Domain.Commands.Authentication
+namespace iPlantino.Domain.Commands.Registration
 {
     public class RegisterUserCommand : UserCommand, IRequest
     {

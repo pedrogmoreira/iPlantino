@@ -2,12 +2,12 @@
 using iPlantino.Domain.Core.Notifications;
 using iPlantino.Authentication.Models;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
 using iPlantino.Infra.CrossCutting.Identity.Interfaces;
 using iPlantino.Infra.CrossCutting.Identity.Entities;
+using iPlantino.Domain.Core.UnitOfWork;
 
 namespace iPlantino.Authentication
 {
@@ -34,7 +34,7 @@ namespace iPlantino.Authentication
                 var user = await _authenticationRepository.GetFirstOrDefaultAsync(
                predicate: x => x.UserName == authenticateUser.Login,
                 disableTracking: true,
-                include: "UsersGroup.Group.PermissionsGroup.Permission");
+                include: "UserRoles.Role.RoleClaims.Role");
 
                 if (user == null)
                 {
@@ -44,13 +44,17 @@ namespace iPlantino.Authentication
 
                 if (_userManager.ValidateCredentials(user, authenticateUser.Password).Result.Succeeded)
                 {
-                    var roles = new List<string>();
+                    var permissions = new List<string>();
                     foreach (var role in user.UserRoles.ToList())
                     {
-                        roles.Add(role.Role.Name);
+                        foreach (var claim in role.Role.RoleClaims.ToList())
+                        {
+                            permissions.Add(claim.ClaimValue);
+                        }
                     }
+
                     return new AuthenticatedUser(user.Id, user.Name, user.UserName,
-                        user.Email, roles);
+                        user.Email, permissions);
                 }
 
                 await Notify("Usuario", "Usuário ou Senha Inválidos");

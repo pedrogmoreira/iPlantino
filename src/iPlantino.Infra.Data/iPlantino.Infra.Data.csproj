@@ -12,8 +12,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\iPlantino.Domain\iPlantino.Domain.csproj" />
+    <ProjectReference Include="..\iPlantino.Infra.CrossCutting.EntityFramework.Extensions\iPlantino.Infra.CrossCutting.EntityFramework.Extensions.csproj" />
     <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Identity\iPlantino.Infra.CrossCutting.Identity.csproj" />
-    <ProjectReference Include="..\iPlantino.Infra.UnitOfWork\iPlantino.Infra.UnitOfWork.csproj" />
+    <ProjectReference Include="..\Microsoft.EntityFrameworkCore.UnitOfWork\Microsoft.EntityFrameworkCore.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

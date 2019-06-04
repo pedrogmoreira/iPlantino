@@ -46,7 +46,7 @@ namespace iPlantino.Infra.Data.Mappings.Identity
 
             entity.Property(x => x.LockoutEnd)
                 .HasColumnName("lockout_end")
-                .HasColumnType("timestamp");
+                .HasDefaultValueSql("getutcdate()");
 
             entity.Property(x => x.NormalizedEmail)
                 .HasMaxLength(256)

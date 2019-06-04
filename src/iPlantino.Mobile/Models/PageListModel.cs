@@ -1,5 +1,4 @@
-﻿using System;
-namespace iPlantino.Mobile.Models
+﻿namespace iPlantino.Mobile.Models
 {
     public class PageListModel
     {

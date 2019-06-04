@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace iPlantino.Infra.Data
+﻿namespace iPlantino.Infra.Data
 {
     public class Schemas
     {

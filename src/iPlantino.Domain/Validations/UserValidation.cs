@@ -1,8 +1,8 @@
-﻿using iPlantino.Domain.Commands.Authentication;
-using FluentValidation;
+﻿using FluentValidation;
 using iPlantino.Domain.ValueObjects.Validators;
+using iPlantino.Domain.Commands;
 
-namespace iPlantino.Domain.Validations.Authentication
+namespace iPlantino.Domain.Validations
 {
     public abstract class UserValidation<T> : AbstractValidator<T> where T : UserCommand
     {

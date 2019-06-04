@@ -19,6 +19,29 @@ namespace MigrateAzure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("iPlantino.Domain.AggregatesModel.PermissionAggregate.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Title")
+                        .HasColumnName("title")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("permission","identity");
+                });
+
             modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.AplicationUserClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -153,10 +176,10 @@ namespace MigrateAzure.Migrations
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnName("lockout_enabled");
 
-                    b.Property<byte[]>("LockoutEnd")
-                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 12)))
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("lockout_end")
-                        .HasColumnType("timestamp");
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("Name")
                         .HasColumnName("name")

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Egl.Sit.Api.V1.Usuarios.Models
+namespace iPlantino.Services.Api.V1.Usuarios.Models
 {
-    public class DetalhesUsuarioModel
+    public class UserDetailsModel
     {
         public Guid Id { get; set; }
-        public string Nome { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
-        public string Telefone { get; set; }
+        public String PhoneNumber { get; set; }
         public string Login { get; set; }
-        public DateTime? DataFimDoBloqueio { get; set; }
-        public int ContadorErroSenha { get; set; }
-        public IEnumerable<string> Grupos { get; set; }
+        public DateTimeOffset? LockoutEnd { get; set; }
+        public int AccessFailedCount { get; set; }
+        public IEnumerable<string> Groups { get; set; }
     }
 }

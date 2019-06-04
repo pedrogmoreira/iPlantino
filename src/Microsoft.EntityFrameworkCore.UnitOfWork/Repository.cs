@@ -297,9 +297,9 @@ namespace Microsoft.EntityFrameworkCore
 
         public virtual Task<IPagedList<TResult>> GetPagedListAsync<TResult>(
             Expression<Func<TEntity, TResult>> selector,
-            Expression<Func<TEntity, bool>> predicate = null, 
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
-            int pageIndex = 0, int pageSize = 20, bool disableTracking = true, 
+            Expression<Func<TEntity, bool>> predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int pageIndex = 0, int pageSize = 20, bool disableTracking = true,
             CancellationToken cancellationToken = default(CancellationToken), params string[] includes)
         {
             IQueryable<TEntity> query = _dbSet;
@@ -432,10 +432,10 @@ namespace Microsoft.EntityFrameworkCore
             return await query.FirstOrDefaultAsync();
         }
 
-        public Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<TEntity, TResult>> selector, 
-            Expression<Func<TEntity, bool>> predicate = null, 
+        public Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
+            Expression<Func<TEntity, bool>> predicate = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            bool disableTracking = true, 
+            bool disableTracking = true,
             params string[] includes)
         {
 
@@ -537,9 +537,9 @@ namespace Microsoft.EntityFrameworkCore
         }
 
         public IQueryable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector,
-            Expression<Func<TEntity, bool>> predicate = null, 
-                Func<IQueryable<TEntity>, 
-                IOrderedQueryable<TEntity>> orderBy = null, 
+            Expression<Func<TEntity, bool>> predicate = null,
+                Func<IQueryable<TEntity>,
+                IOrderedQueryable<TEntity>> orderBy = null,
                 bool disableTracking = true, params string[] includes)
         {
             IQueryable<TEntity> query = _dbSet;
@@ -568,7 +568,7 @@ namespace Microsoft.EntityFrameworkCore
 
         public IQueryable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector,
             Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             bool disableTracking = true)
         {
             IQueryable<TEntity> query = _dbSet;
@@ -771,6 +771,6 @@ namespace Microsoft.EntityFrameworkCore
         /// <param name="entities">The entities.</param>
         public virtual void Delete(IEnumerable<TEntity> entities) => _dbSet.RemoveRange(entities);
 
-       
+
     }
 }

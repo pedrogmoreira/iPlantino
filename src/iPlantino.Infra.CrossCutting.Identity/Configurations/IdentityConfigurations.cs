@@ -1,6 +1,4 @@
-﻿using Egl.Sit.Infra.CrossCutting.Identity.Configurations;
-
-namespace iPlantino.Infra.CrossCutting.Identity.Configurations
+﻿namespace iPlantino.Infra.CrossCutting.Identity.Configurations
 {
     public static class IdentityConfigurations
     {

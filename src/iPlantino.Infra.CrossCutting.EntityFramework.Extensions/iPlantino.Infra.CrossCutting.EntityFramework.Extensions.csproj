@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\iPlantino.Domain.Core\iPlantino.Domain.Core.csproj" />
-    <ProjectReference Include="..\iPlantino.Domain\iPlantino.Domain.csproj" />
   </ItemGroup>
 
 </Project>

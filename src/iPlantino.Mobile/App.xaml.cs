@@ -1,5 +1,4 @@
-﻿using System;
-using Plugin.BLE.Abstractions.Contracts;
+﻿using Plugin.BLE.Abstractions.Contracts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

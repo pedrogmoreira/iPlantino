@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Egl.Sit.Api.V1.Usuarios.Models;
+using iPlantino.Services.Api.V1.Usuarios.Models;
 using iPlantino.Domain.AggregatesModel.UserAggregate;
-using iPlantino.Domain.Commands.Authentication;
+using iPlantino.Domain.Commands.Registration;
 using iPlantino.Domain.Core.Bus;
 using iPlantino.Domain.Core.Notifications;
 using iPlantino.Services.Api.Controllers;
 using iPlantino.Services.Api.Infrastructure.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using iPlantino.Infra.CrossCutting.Identity.Interfaces;
 
 namespace iPlantino.Sevices.Api.Controllers
 {
-    [Route("api/user")]
+    /// <summary>
+    /// Controler de Autenticação
+    /// </summary>
     [Produces("application/json")]
     public class UserController : ApiController
     {
@@ -23,7 +27,6 @@ namespace iPlantino.Sevices.Api.Controllers
         /// 
         /// </summary>
         /// <param name="notifications"></param>
-        /// <param name="authenticationService"></param>
         public UserController(INotificationHandler<DomainNotification> notifications) : base(notifications) { }
 
         /// <summary>
@@ -33,27 +36,24 @@ namespace iPlantino.Sevices.Api.Controllers
         /// <param name="userRepository"></param>
         /// <param name="idUsuario"></param>
         /// <returns></returns>
-        [HttpGet("{idUsuario}")]
-        [ProducesResponseType(typeof(DetalhesUsuarioModel), 200)]
+        [HttpGet("api/user/{idUsuario}")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(UserDetailsModel), 200)]
         [ProducesResponseType(typeof(IDictionary<string, IEnumerable<string>>), 400)]
         [ProducesResponseType(typeof(JsonErrorResponse), 500)]
-        public async Task<IActionResult> Get([FromServices]IUserRepository userRepository, [FromRoute] Guid idUsuario)
+        public async Task<IActionResult> Get([FromServices]IUserRepository userRepository, [FromServices] IUserManager userManager, [FromRoute] Guid idUsuario)
         {
-            Expression<Func<User, bool>> predicate = p => p.Id == idUsuario;
+            var user = await userManager.GetById(idUsuario);
 
-            Expression<Func<User, DetalhesUsuarioModel>> selector = user => new DetalhesUsuarioModel
+            var result = new UserDetailsModel
             {
                 Id = user.Id,
-                Nome = user.Name,
+                Name = user.Name,
                 Login = user.UserName,
                 Email = user.Email,
-                ContadorErroSenha = user.AccessFailedCount,
-                DataFimDoBloqueio = user.LockoutEnd,
-                Telefone = user.PhoneNumber,
-                Grupos = user.UserRole.Select(x => x.Role.Name)
+                AccessFailedCount = user.AccessFailedCount,
+                //Groups = user.UserRoles.Select(x => x.Role.Name)
             };
-
-            var result = await userRepository.Get(selector, predicate, includes: "UserRole.Role");
 
             return Response(result);
         }
@@ -63,18 +63,20 @@ namespace iPlantino.Sevices.Api.Controllers
         /// Roles: [usuarios-adicionar]
         /// </summary>  
         /// <param name="bus"></param>
-        /// <param name="novoUsuarioModel"></param>
-        /// <returns>Id do Usuário Criado <see cref="UsuarioAdicionadoModel"/></returns>
+        /// <param name="registerUserModel"></param>
+        /// <returns>Id do Usuário Criado <see cref="UserRegisteredModel"/></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(UsuarioAdicionadoModel), 201)]
+        [Route("api/user/register")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(UserRegisteredModel), 201)]
         [ProducesResponseType(typeof(IDictionary<string, IEnumerable<string>>), 400)]
         [ProducesResponseType(typeof(JsonErrorResponse), 500)]
-        public async Task<IActionResult> Post([FromServices]IMediatorHandler bus, [FromBody] AdicionarUsuarioModel novoUsuarioModel)
+        public async Task<IActionResult> Post([FromServices]IMediatorHandler bus, [FromBody] RegisterUserModel registerUserModel)
         {
-            var comando = new RegisterUserCommand(novoUsuarioModel.Nome, novoUsuarioModel.Login,
-                                                         novoUsuarioModel.Senha, novoUsuarioModel.ConfirmaSenha, novoUsuarioModel.Email);
-            await bus.SendCommand(comando);
-            return ResponseCreated($"api/usuarios/{comando.Id}", new UsuarioAdicionadoModel { Id = comando.Id, Login = comando.Login.Value });
+            var command = new RegisterUserCommand(registerUserModel.Name, registerUserModel.Login,
+                                                         registerUserModel.Password, registerUserModel.PasswordConfirmation, registerUserModel.Email);
+            await bus.SendCommand(command);
+            return ResponseCreated($"api/user/{command.Id}", new UserRegisteredModel { Id = command.Id, Login = command.Login.Value });
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;

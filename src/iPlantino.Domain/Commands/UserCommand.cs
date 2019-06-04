@@ -2,7 +2,7 @@
 using iPlantino.Domain.ValueObjects;
 using System;
 
-namespace iPlantino.Domain.Commands.Authentication
+namespace iPlantino.Domain.Commands
 {
     public abstract class UserCommand : Command
     {

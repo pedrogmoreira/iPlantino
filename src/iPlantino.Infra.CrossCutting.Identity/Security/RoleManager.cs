@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace iPlantino.Infra.CrossCutting.Identity.Security
 {
