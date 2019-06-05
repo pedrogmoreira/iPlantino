@@ -13,5 +13,6 @@ namespace iPlantino.Services.Api.V1.Usuarios.Models
         public DateTimeOffset? LockoutEnd { get; set; }
         public int AccessFailedCount { get; set; }
         public IEnumerable<string> Groups { get; set; }
+        public IEnumerable<string> Devices { get; set; }
     }
 }

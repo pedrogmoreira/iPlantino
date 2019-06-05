@@ -15,4 +15,8 @@
     <Folder Include="AggregateModels\DeviceAggregate\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+  </ItemGroup>
+
 </Project>

@@ -28,19 +28,19 @@
             Controler de Autenticação
             </summary>
         </member>
-        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.#ctor(MediatR.INotificationHandler{iPlantino.Domain.Core.Notifications.DomainNotification})">
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.#ctor(iPlantino.Domain.Core.UnitOfWork.IUnitOfWork,MediatR.INotificationHandler{iPlantino.Domain.Core.Notifications.DomainNotification})">
             <summary>
             
             </summary>
             <param name="notifications"></param>
         </member>
-        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Get(iPlantino.Domain.AggregatesModel.UserAggregate.IUserRepository,iPlantino.Infra.CrossCutting.Identity.Interfaces.IUserManager,System.Guid)">
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Get(System.String)">
             <summary>
             Detalha um usuário.
             Roles: [usuarios-detalhar,usuarios-adicionar]
             </summary>
             <param name="userRepository"></param>
-            <param name="idUsuario"></param>
+            <param name="username"></param>
             <returns></returns>
         </member>
         <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.V1.Usuarios.Models.RegisterUserModel)">

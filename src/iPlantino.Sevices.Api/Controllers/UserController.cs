@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Authorization;
 using iPlantino.Infra.CrossCutting.Identity.Interfaces;
 using iPlantino.Services.Api.Models.UserModels;
 using iPlantino.Domain.Commands.Device;
+using iPlantino.Domain.Core.UnitOfWork;
+using iPlantino.Infra.CrossCutting.Identity.Entities;
+using System.Linq;
 
 namespace iPlantino.Sevices.Api.Controllers
 {
@@ -23,27 +26,35 @@ namespace iPlantino.Sevices.Api.Controllers
     [Produces("application/json")]
     public class UserController : ApiController
     {
+        private readonly IRepository<ApplicationUser> _userRepository;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="notifications"></param>
-        public UserController(INotificationHandler<DomainNotification> notifications) : base(notifications) { }
+        public UserController(IUnitOfWork unitOfWork, INotificationHandler<DomainNotification> notifications) : base(notifications)
+        {
+            _userRepository = unitOfWork.GetRepository<ApplicationUser>();
+        }
 
         /// <summary>
         /// Detalha um usuário.
         /// Roles: [usuarios-detalhar,usuarios-adicionar]
         /// </summary>
         /// <param name="userRepository"></param>
-        /// <param name="idUsuario"></param>
+        /// <param name="username"></param>
         /// <returns></returns>
-        [HttpGet("api/user/{idUsuario}")]
+        [HttpGet("api/user/{username}")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(UserDetailsModel), 200)]
         [ProducesResponseType(typeof(IDictionary<string, IEnumerable<string>>), 400)]
         [ProducesResponseType(typeof(JsonErrorResponse), 500)]
-        public async Task<IActionResult> Get([FromServices]IUserRepository userRepository, [FromServices] IUserManager userManager, [FromRoute] Guid idUsuario)
+        public async Task<IActionResult> Get([FromRoute] string username)
         {
-            var user = await userManager.GetById(idUsuario);
+            var user = await _userRepository.GetFirstOrDefaultAsync(
+               predicate: x => x.UserName == username,
+                disableTracking: true,
+                include: new string[] { "UserRoles.Role.RoleClaims.Role", "UserArduinos.Arduino" });
 
             var result = new UserDetailsModel
             {
@@ -52,7 +63,8 @@ namespace iPlantino.Sevices.Api.Controllers
                 Login = user.UserName,
                 Email = user.Email,
                 AccessFailedCount = user.AccessFailedCount,
-                //Groups = user.UserRoles.Select(x => x.Role.Name)
+                Groups = user.UserRoles.Select(x => x.Role.Name),
+                Devices = user.UserArduinos.Select(x => x.Arduino.Name)
             };
 
             return Response(result);

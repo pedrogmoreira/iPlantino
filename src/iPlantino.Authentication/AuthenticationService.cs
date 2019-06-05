@@ -34,7 +34,7 @@ namespace iPlantino.Authentication
                 var user = await _authenticationRepository.GetFirstOrDefaultAsync(
                predicate: x => x.UserName == authenticateUser.Login,
                 disableTracking: true,
-                include: new string[] { "UserRoles.Role.RoleClaims.Role" });
+                include: new string[] { "UserRoles.Role.RoleClaims.Role", "UserArduinos.Arduino" });
 
                 if (user == null)
                 {

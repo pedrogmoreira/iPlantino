@@ -28,7 +28,7 @@ namespace iPlantino.Infra.Data.Mappings.Device
                 .HasMaxLength(256);
 
             entity.Property(x => x.MacAdrress)
-                .HasColumnName("name")
+                .HasColumnName("mac_address")
                 .IsRequired()
                 .HasMaxLength(256);
 

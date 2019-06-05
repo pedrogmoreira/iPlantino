@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\pedro\Documents\_CEUB\SÈTIMO\iPlantino-master\iPlantino\src\iPlantino.Sevices.Api\iPlantino.Services.Api.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\pedro.moreira\Documents\__\iPlantino\src\iPlantino.Sevices.Api\iPlantino.Services.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\pedro\Documents\_CEUB\SÈTIMO\iPlantino-master\iPlantino\src\iPlantino.Sevices.Api\iPlantino.Services.Api.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\pedro.moreira\Documents\__\iPlantino\src\iPlantino.Sevices.Api\iPlantino.Services.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

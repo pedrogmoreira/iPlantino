@@ -18,7 +18,7 @@ namespace Migrate
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var identityAssembly = typeof(UserEntityMapping).Assembly;
-            var deviceAssembly = typeof(ArduinoEntityMapping).Assembly;
+            var deviceAssembly = typeof(HumidityEntityMapping).Assembly;
 
             modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(identityAssembly, "iPlantino.Infra.Data.Mappings.Identity");
             modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(deviceAssembly, "iPlantino.Infra.Data.Mappings.Device");

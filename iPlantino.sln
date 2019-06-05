@@ -48,7 +48,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.EntityFrameworkCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iPlantino.Infra.CrossCutting.EntityFramework.Extensions", "src\iPlantino.Infra.CrossCutting.EntityFramework.Extensions\iPlantino.Infra.CrossCutting.EntityFramework.Extensions.csproj", "{8AD5BB15-A57F-42FA-8D12-12EAFBC43271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iPlantino.Domain.Device", "src\iPlantino.Domain.Device\iPlantino.Domain.Device.csproj", "{40401142-BE7F-47B7-847E-8B022C0E9B86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iPlantino.Domain.Device", "src\iPlantino.Domain.Device\iPlantino.Domain.Device.csproj", "{40401142-BE7F-47B7-847E-8B022C0E9B86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

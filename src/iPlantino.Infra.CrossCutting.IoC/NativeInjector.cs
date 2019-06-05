@@ -50,6 +50,10 @@ namespace Microsoft.Extensions.DependencyInjection
             container.RegisterType<InMemoryBus>()
                 .As<IMediatorHandler>()
                 .InstancePerLifetimeScope();
+
+            container.RegisterType<IdentityContext>()
+                .As<DbContext>()
+                .InstancePerLifetimeScope();
         }
 
         private static void ConfigureIdentity(this IServiceCollection services, ContainerBuilder builder, IConfigurationRoot configuration)
