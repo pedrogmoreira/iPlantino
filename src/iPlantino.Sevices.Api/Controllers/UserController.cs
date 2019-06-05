@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using iPlantino.Services.Api.V1.Usuarios.Models;
 using iPlantino.Domain.AggregatesModel.UserAggregate;
@@ -14,6 +12,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using iPlantino.Infra.CrossCutting.Identity.Interfaces;
+using iPlantino.Services.Api.Models.UserModels;
+using iPlantino.Domain.Commands.Device;
 
 namespace iPlantino.Sevices.Api.Controllers
 {
@@ -77,6 +77,27 @@ namespace iPlantino.Sevices.Api.Controllers
                                                          registerUserModel.Password, registerUserModel.PasswordConfirmation, registerUserModel.Email);
             await bus.SendCommand(command);
             return ResponseCreated($"api/user/{command.Id}", new UserRegisteredModel { Id = command.Id, Login = command.Login.Value });
+        }
+
+        /// <summary>
+        /// Adiciona um novo usuário.
+        /// Roles: [usuarios-adicionar]
+        /// </summary>  
+        /// <param name="bus"></param>
+        /// <param name="addDeviceModel"></param>
+        /// <returns>Id do Usuário Criado <see cref="UserRegisteredModel"/></returns>
+        [HttpPost]
+        [Route("api/user/add/device")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(UserRegisteredModel), 201)]
+        [ProducesResponseType(typeof(IDictionary<string, IEnumerable<string>>), 400)]
+        [ProducesResponseType(typeof(JsonErrorResponse), 500)]
+        public async Task<IActionResult> Post([FromServices]IMediatorHandler bus, [FromBody] AddDeviceModel addDeviceModel)
+        {
+            var command = new AddDeviceCommand(addDeviceModel.Name, addDeviceModel.Observation,
+                                                         addDeviceModel.MacAddress, addDeviceModel.UserId);
+            await bus.SendCommand(command);
+            return ResponseCreated($"api/user/{command.Id}", new DeviceAdded { Id = command.Id.ToString(), Name = command.Name, MacAddress = command.MacAddress, Observation = command.Observation });
         }
     }
 }

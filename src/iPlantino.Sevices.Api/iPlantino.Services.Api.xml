@@ -52,5 +52,14 @@
             <param name="registerUserModel"></param>
             <returns>Id do Usuário Criado <see cref="T:iPlantino.Services.Api.V1.Usuarios.Models.UserRegisteredModel"/></returns>
         </member>
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.Models.UserModels.AddDeviceModel)">
+            <summary>
+            Adiciona um novo usuário.
+            Roles: [usuarios-adicionar]
+            </summary>  
+            <param name="bus"></param>
+            <param name="addDeviceModel"></param>
+            <returns>Id do Usuário Criado <see cref="T:iPlantino.Services.Api.V1.Usuarios.Models.UserRegisteredModel"/></returns>
+        </member>
     </members>
 </doc>

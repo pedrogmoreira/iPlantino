@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Migrate;
 
 namespace MigrateAzure.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20190605133349_Device")]
+    partial class Device
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +54,6 @@ namespace MigrateAzure.Migrations
                         .HasColumnName("inclusion_date")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("MacAdrress")
                         .IsRequired()
                         .HasColumnName("name")
@@ -72,8 +71,6 @@ namespace MigrateAzure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("arduino","device");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Arduino");
                 });
 
             modelBuilder.Entity("iPlantino.Domain.Device.Models.ArduinoHumidity", b =>
@@ -295,25 +292,6 @@ namespace MigrateAzure.Migrations
                     b.ToTable("user","identity");
                 });
 
-            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUserArduino", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnName("user_id");
-
-                    b.Property<Guid>("ArduinoId")
-                        .HasColumnName("arduino_id");
-
-                    b.Property<int>("Id");
-
-                    b.HasKey("UserId", "ArduinoId");
-
-                    b.HasIndex("ArduinoId")
-                        .IsUnique()
-                        .HasName("user_arduino_id_index");
-
-                    b.ToTable("user_arduino","identity");
-                });
-
             modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUserToken", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -331,13 +309,6 @@ namespace MigrateAzure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("user_token","identity");
-                });
-
-            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationArduino", b =>
-                {
-                    b.HasBaseType("iPlantino.Domain.Device.Models.Arduino");
-
-                    b.HasDiscriminator().HasValue("ApplicationArduino");
                 });
 
             modelBuilder.Entity("iPlantino.Domain.Device.Models.ArduinoHumidity", b =>
@@ -387,19 +358,6 @@ namespace MigrateAzure.Migrations
                     b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationRole", "Role")
                         .WithMany("RoleClaims")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUserArduino", b =>
-                {
-                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationArduino", "Arduino")
-                        .WithOne("UserArduino")
-                        .HasForeignKey("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUserArduino", "ArduinoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("iPlantino.Infra.CrossCutting.Identity.Entities.ApplicationUser", "User")
-                        .WithMany("UserArduinos")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

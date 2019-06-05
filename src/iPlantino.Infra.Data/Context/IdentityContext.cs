@@ -1,4 +1,5 @@
-﻿using iPlantino.Infra.CrossCutting.Identity.Configurations;
+﻿using iPlantino.Domain.Device.Models;
+using iPlantino.Infra.CrossCutting.Identity.Configurations;
 using iPlantino.Infra.CrossCutting.Identity.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,10 @@ namespace iPlantino.Infra.Data.Context
         {
         }
 
+        public DbSet<Arduino> Arduinos { get; set; }
+        public DbSet<Humidity> Humidities { get; set; }
+        public DbSet<ArduinoHumidity> ArduinoHumidities { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -22,6 +27,8 @@ namespace iPlantino.Infra.Data.Context
 
             modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(GetType().Assembly,
                 "iPlantino.Infra.Data.Mappings.Identity");
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(GetType().Assembly,
+                "iPlantino.Infra.Data.Mappings.Device");
         }
     }
 }

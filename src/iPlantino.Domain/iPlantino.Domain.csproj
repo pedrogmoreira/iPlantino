@@ -8,10 +8,11 @@
     <ProjectReference Include="..\iPlantino.Domain.Core\iPlantino.Domain.Core.csproj" />
     <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Bus\iPlantino.Infra.CrossCutting.Bus.csproj" />
     <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Identity\iPlantino.Infra.CrossCutting.Identity.csproj" />
+    <ProjectReference Include="..\Microsoft.EntityFrameworkCore.UnitOfWork\Microsoft.EntityFrameworkCore.UnitOfWork.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="AggregateModels\DeviceAggregate\" />
   </ItemGroup>
 
 </Project>

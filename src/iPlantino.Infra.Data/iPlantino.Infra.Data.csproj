@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\iPlantino.Domain.Device\iPlantino.Domain.Device.csproj" />
     <ProjectReference Include="..\iPlantino.Domain\iPlantino.Domain.csproj" />
     <ProjectReference Include="..\iPlantino.Infra.CrossCutting.EntityFramework.Extensions\iPlantino.Infra.CrossCutting.EntityFramework.Extensions.csproj" />
     <ProjectReference Include="..\iPlantino.Infra.CrossCutting.Identity\iPlantino.Infra.CrossCutting.Identity.csproj" />

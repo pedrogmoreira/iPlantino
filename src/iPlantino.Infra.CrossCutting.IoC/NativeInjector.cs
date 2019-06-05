@@ -15,6 +15,8 @@ using iPlantino.Infra.CrossCutting.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using iPlantino.Domain.CommandHandlers.Registration;
 using iPlantino.Infra.Data.Repositories;
+using iPlantino.Domain.CommandHandlers.Device;
+using iPlantino.Domain.Device.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -68,6 +70,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<Repository<Arduino>>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
@@ -101,8 +107,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddDbContext<IdentityContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("AzureServer")));
 
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<DeviceContext>(options =>
+                    options.UseSqlServer(configuration.GetConnectionString("AzureServer")));
+
             //Commands Handlers
             container.RegisterType<RegisterUserCommandHandler>().AsImplementedInterfaces().InstancePerDependency();
+            container.RegisterType<AddDeviceCommandHandler>().AsImplementedInterfaces().InstancePerDependency();
 
             return services;
         }

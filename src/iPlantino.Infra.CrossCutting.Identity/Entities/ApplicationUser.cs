@@ -20,5 +20,6 @@ namespace iPlantino.Infra.CrossCutting.Identity.Entities
         public ICollection<AplicationUserLogin> UserLogins { get; set; }
         public ICollection<ApplicationUserToken> UserTokens { get; set; }
         public ICollection<AplicationUserRole> UserRoles { get; set; }
+        public ICollection<ApplicationUserArduino> UserArduinos { get; set; }
     }
 }

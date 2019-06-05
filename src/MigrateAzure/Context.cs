@@ -1,4 +1,5 @@
-﻿using iPlantino.Infra.Data.Mappings.Identity;
+﻿using iPlantino.Infra.Data.Mappings.Device;
+using iPlantino.Infra.Data.Mappings.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Migrate
@@ -16,9 +17,11 @@ namespace Migrate
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var assembly = typeof(UserEntityMapping).Assembly;
+            var identityAssembly = typeof(UserEntityMapping).Assembly;
+            var deviceAssembly = typeof(ArduinoEntityMapping).Assembly;
 
-            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(assembly, "iPlantino.Infra.Data.Mappings.Identity");
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(identityAssembly, "iPlantino.Infra.Data.Mappings.Identity");
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly(deviceAssembly, "iPlantino.Infra.Data.Mappings.Device");
         }
     }
 }

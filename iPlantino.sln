@@ -44,9 +44,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iPlantino.Mobile", "src\iPl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iPlantino.Infra.CrossCutting.Identity", "src\iPlantino.Infra.CrossCutting.Identity\iPlantino.Infra.CrossCutting.Identity.csproj", "{EAC03D97-F322-4DF8-B08D-6518E4EB7579}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.EntityFrameworkCore.UnitOfWork", "src\Microsoft.EntityFrameworkCore.UnitOfWork\Microsoft.EntityFrameworkCore.UnitOfWork.csproj", "{CD485172-0465-4B04-8CA5-53334AF4BCD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.EntityFrameworkCore.UnitOfWork", "src\Microsoft.EntityFrameworkCore.UnitOfWork\Microsoft.EntityFrameworkCore.UnitOfWork.csproj", "{CD485172-0465-4B04-8CA5-53334AF4BCD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iPlantino.Infra.CrossCutting.EntityFramework.Extensions", "src\iPlantino.Infra.CrossCutting.EntityFramework.Extensions\iPlantino.Infra.CrossCutting.EntityFramework.Extensions.csproj", "{8AD5BB15-A57F-42FA-8D12-12EAFBC43271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iPlantino.Infra.CrossCutting.EntityFramework.Extensions", "src\iPlantino.Infra.CrossCutting.EntityFramework.Extensions\iPlantino.Infra.CrossCutting.EntityFramework.Extensions.csproj", "{8AD5BB15-A57F-42FA-8D12-12EAFBC43271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iPlantino.Domain.Device", "src\iPlantino.Domain.Device\iPlantino.Domain.Device.csproj", "{40401142-BE7F-47B7-847E-8B022C0E9B86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -796,6 +798,54 @@ Global
 		{8AD5BB15-A57F-42FA-8D12-12EAFBC43271}.Release|x64.Build.0 = Release|Any CPU
 		{8AD5BB15-A57F-42FA-8D12-12EAFBC43271}.Release|x86.ActiveCfg = Release|Any CPU
 		{8AD5BB15-A57F-42FA-8D12-12EAFBC43271}.Release|x86.Build.0 = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|ARM.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|ARM.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|x64.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|ARM.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|ARM.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|x64.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|x64.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|x86.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.AppStore|x86.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|ARM.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|x64.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Debug|x86.Build.0 = Debug|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|ARM.ActiveCfg = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|ARM.Build.0 = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|iPhone.Build.0 = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|x64.ActiveCfg = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|x64.Build.0 = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|x86.ActiveCfg = Release|Any CPU
+		{40401142-BE7F-47B7-847E-8B022C0E9B86}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -818,6 +868,7 @@ Global
 		{EAC03D97-F322-4DF8-B08D-6518E4EB7579} = {D7DD55D6-5B71-41FA-BF7F-4FE1E540DB10}
 		{CD485172-0465-4B04-8CA5-53334AF4BCD9} = {D7DD55D6-5B71-41FA-BF7F-4FE1E540DB10}
 		{8AD5BB15-A57F-42FA-8D12-12EAFBC43271} = {D7DD55D6-5B71-41FA-BF7F-4FE1E540DB10}
+		{40401142-BE7F-47B7-847E-8B022C0E9B86} = {4B2D258B-6491-48CB-AE9C-A218639C2B5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86CB1218-B71C-4794-880B-21625007BEBD}

@@ -14,7 +14,6 @@ namespace iPlantino.Infra.CrossCutting.Identity.Security
 
         public UserManager(UserManager<ApplicationUser> userManager)
         {
-            
             _userManager = userManager;
         }
 
