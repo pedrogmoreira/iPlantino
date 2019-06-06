@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iPlantino.Services.Api.V1.Usuarios.Models
+namespace iPlantino.Services.Api.Models.UserModels
 {
     public class UserRegisteredModel
     {

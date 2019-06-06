@@ -15,8 +15,9 @@ using iPlantino.Infra.CrossCutting.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using iPlantino.Domain.CommandHandlers.Registration;
 using iPlantino.Infra.Data.Repositories;
-using iPlantino.Domain.CommandHandlers.Device;
+using iPlantino.Domain.CommandHandlers.Measurement;
 using iPlantino.Domain.Device.Models;
+using iPlantino.Domain.CommandHandlers.Device;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -111,13 +112,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddDbContext<IdentityContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("AzureServer")));
 
-            services.AddEntityFrameworkSqlServer()
-                .AddDbContext<DeviceContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("AzureServer")));
-
             //Commands Handlers
             container.RegisterType<RegisterUserCommandHandler>().AsImplementedInterfaces().InstancePerDependency();
             container.RegisterType<AddDeviceCommandHandler>().AsImplementedInterfaces().InstancePerDependency();
+            container.RegisterType<RegisterMeasurementCommandHandler>().AsImplementedInterfaces().InstancePerDependency();
 
             return services;
         }

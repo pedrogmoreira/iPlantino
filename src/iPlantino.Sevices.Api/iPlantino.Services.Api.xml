@@ -6,7 +6,7 @@
     <members>
         <member name="T:iPlantino.Services.Api.Controllers.AuthenticationController">
             <summary>
-            Controler de Autenticação
+            Controller for authentication actions
             </summary>
         </member>
         <member name="M:iPlantino.Services.Api.Controllers.AuthenticationController.#ctor(MediatR.INotificationHandler{iPlantino.Domain.Core.Notifications.DomainNotification},iPlantino.Infra.CrossCutting.Jwt.JwtAutenticationService)">
@@ -18,48 +18,100 @@
         </member>
         <member name="M:iPlantino.Services.Api.Controllers.AuthenticationController.Post(iPlantino.Services.Api.Models.LoginModel)">
             <summary>
-            Responsável por Autenticar o Usuário na API. Em uma açao bem sucedida é retornado os dados do usuário e o token de acesso.
+            Authenticates a user and returns a token on a successful login action
             </summary>
             <param name="login">login e senha do usuário.</param>
             <returns></returns>
         </member>
+        <member name="T:iPlantino.Services.Api.Controllers.DeviceController">
+            <summary>
+            Controller for device actions
+            </summary>
+        </member>
+        <member name="M:iPlantino.Services.Api.Controllers.DeviceController.#ctor(iPlantino.Domain.Core.UnitOfWork.IUnitOfWork,MediatR.INotificationHandler{iPlantino.Domain.Core.Notifications.DomainNotification})">
+            <summary>
+            
+            </summary>
+            <param name="unitOfWork"></param>
+            <param name="notifications"></param>
+        </member>
+        <member name="M:iPlantino.Services.Api.Controllers.DeviceController.Get(System.String)">
+            <summary>
+            Lists all devices for a user
+            Roles: [device-user]
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:iPlantino.Services.Api.Controllers.DeviceController.GetAlltMeasurement(System.String)">
+            <summary>
+            Lists all measurements for a device
+            Roles: [device-measurement-details]
+            </summary>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:iPlantino.Services.Api.Controllers.DeviceController.GetLastMeasurement(System.String)">
+            <summary>
+            Details the last measurement for a device
+            Roles: [device-measurement-details]
+            </summary>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:iPlantino.Services.Api.Controllers.DeviceController.DeviceDetails(System.String)">
+            <summary>
+            Details a device
+            Roles: [device-details]
+            </summary>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:iPlantino.Services.Api.Controllers.DeviceController.Measure(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.Models.DeviceModels.RegisterMeasurementModel)">
+            <summary>
+            Register a measure for a device
+            Roles: [device-measurement-registration]
+            </summary>  
+            <param name="bus"></param>
+            <param name="registerMeasurementModel"></param>
+            <returns>Id do Usuário Criado <see cref="T:iPlantino.Services.Api.Models.UserModels.UserRegisteredModel"/></returns>
+        </member>
+        <member name="M:iPlantino.Services.Api.Controllers.DeviceController.RegisterDevice(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.Models.DeviceModels.AddDeviceModel)">
+            <summary>
+            Register a device for a user
+            Roles: [device-registration]
+            </summary>  
+            <param name="bus"></param>
+            <param name="addDeviceModel"></param>
+            <returns>Id do Usuário Criado <see cref="T:iPlantino.Services.Api.Models.UserModels.UserRegisteredModel"/></returns>
+        </member>
         <member name="T:iPlantino.Sevices.Api.Controllers.UserController">
             <summary>
-            Controler de Autenticação
+            Controller for user actions
             </summary>
         </member>
         <member name="M:iPlantino.Sevices.Api.Controllers.UserController.#ctor(iPlantino.Domain.Core.UnitOfWork.IUnitOfWork,MediatR.INotificationHandler{iPlantino.Domain.Core.Notifications.DomainNotification})">
             <summary>
             
             </summary>
+            <param name="unitOfWork"></param>
             <param name="notifications"></param>
         </member>
         <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Get(System.String)">
             <summary>
-            Detalha um usuário.
-            Roles: [usuarios-detalhar,usuarios-adicionar]
+            Details a user
+            Roles: [user-detail]
             </summary>
-            <param name="userRepository"></param>
             <param name="username"></param>
             <returns></returns>
         </member>
-        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.V1.Usuarios.Models.RegisterUserModel)">
+        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.Models.UserModels.RegisterUserModel)">
             <summary>
-            Adiciona um novo usuário.
-            Roles: [usuarios-adicionar]
+            Registers a new user
             </summary>  
             <param name="bus"></param>
             <param name="registerUserModel"></param>
-            <returns>Id do Usuário Criado <see cref="T:iPlantino.Services.Api.V1.Usuarios.Models.UserRegisteredModel"/></returns>
-        </member>
-        <member name="M:iPlantino.Sevices.Api.Controllers.UserController.Post(iPlantino.Domain.Core.Bus.IMediatorHandler,iPlantino.Services.Api.Models.UserModels.AddDeviceModel)">
-            <summary>
-            Adiciona um novo usuário.
-            Roles: [usuarios-adicionar]
-            </summary>  
-            <param name="bus"></param>
-            <param name="addDeviceModel"></param>
-            <returns>Id do Usuário Criado <see cref="T:iPlantino.Services.Api.V1.Usuarios.Models.UserRegisteredModel"/></returns>
+            <returns></returns>
         </member>
     </members>
 </doc>

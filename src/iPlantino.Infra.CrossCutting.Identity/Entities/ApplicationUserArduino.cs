@@ -1,5 +1,4 @@
-﻿using iPlantino.Domain.Device.Models;
-using System;
+﻿using System;
 
 namespace iPlantino.Infra.CrossCutting.Identity.Entities
 {

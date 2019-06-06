@@ -2,9 +2,6 @@
 using iPlantino.Infra.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace iPlantino.Infra.Data.Mappings.Identity
 {

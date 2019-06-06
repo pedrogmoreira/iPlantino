@@ -1,15 +1,12 @@
 ﻿using iPlantino.Domain.Commands.Device;
+using iPlantino.Domain.Commands.Measurement;
 using iPlantino.Domain.Core.Bus;
 using iPlantino.Domain.Core.Notifications;
-using iPlantino.Domain.Core.UnitOfWork;
-using iPlantino.Domain.Device.Models;
 using iPlantino.Infra.CrossCutting.Identity.Entities;
 using iPlantino.Infra.CrossCutting.Identity.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

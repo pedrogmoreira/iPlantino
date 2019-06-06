@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace iPlantino.Services.Api.Models.UserModels
+﻿namespace iPlantino.Services.Api.Models.DeviceModels
 {
     public class AddDeviceModel
     {

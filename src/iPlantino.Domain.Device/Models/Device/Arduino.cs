@@ -7,10 +7,8 @@ namespace iPlantino.Domain.Device.Models
 {
     public class Arduino : Entity
     {
-        public Arduino()
-        {
-
-        }
+        public Arduino() { }
+       
         public string Name { get; set; }
         public string Observation { get; set; }
         public string MacAdrress { get; set; }
@@ -21,5 +19,13 @@ namespace iPlantino.Domain.Device.Models
         }
 
         public ICollection<ArduinoHumidity> ArduinoHumidities { get; set; }
+
+        public static Arduino NewArduino(Guid id)
+        {
+            var arduino = new Arduino();
+            arduino.SetId(id);
+            
+            return arduino;
+        }
     }
 }

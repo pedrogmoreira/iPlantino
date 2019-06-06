@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace iPlantino.Services.Api.Controllers
 {
     /// <summary>
-    /// Controler de Autenticação
+    /// Controller for authentication actions
     /// </summary>
     [Produces("application/json")]
     public class AuthenticationController : ApiController
@@ -30,7 +30,7 @@ namespace iPlantino.Services.Api.Controllers
         }
 
         /// <summary>
-        /// Responsável por Autenticar o Usuário na API. Em uma açao bem sucedida é retornado os dados do usuário e o token de acesso.
+        /// Authenticates a user and returns a token on a successful login action
         /// </summary>
         /// <param name="login">login e senha do usuário.</param>
         /// <returns></returns>
